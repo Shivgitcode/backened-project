@@ -1,11 +1,10 @@
 const TodoErrors = require("../../catchErrors");
 const Todo = require("../../schema/todoSchema");
 const User = require("../../schema/userShema");
+const jwt = require("jsonwebtoken");
 
 const showTodo = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const userId = req.session.user_id;
     const user = await User.findById(userId).populate("todos");
     const findTodo = user.todos.find((el) => el._id.toString() === id);
     // const findTodo = await Todo.findById(id);

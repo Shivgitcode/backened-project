@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const app = express();
 const todoRoutes = require("./routes/todo");
 const userRoutes = require("./routes/user");
-const session = require("express-session");
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 dbConnect();
@@ -12,13 +12,7 @@ dbConnect();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(
-  session({
-    secret: "thisisnotagoodsecret",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+app.use(cookieParser());
 app.use("/", todoRoutes);
 app.use("/", userRoutes);
 

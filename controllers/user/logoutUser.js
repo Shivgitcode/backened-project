@@ -1,5 +1,5 @@
 const logoutUser = async (req, res) => {
-  req.session.user_id = null;
+  res.cookie("jwt", null, { maxAge: 1 });
   res.send("logout successfully");
 };
 

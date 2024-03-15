@@ -11,7 +11,7 @@ const registerUser = async (req, res) => {
     email,
     password: hashedPass,
   });
-  req.session.user_id = null;
+  req.cookie.jwt = null;
 
   res.send("user created");
 };

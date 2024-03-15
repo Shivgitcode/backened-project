@@ -1,13 +1,12 @@
 const TodoErrors = require("../../catchErrors");
 const Todo = require("../../schema/todoSchema");
 const User = require("../../schema/userShema");
+const jwt = require("jsonwebtoken");
 
 const createTodo = async (req, res, next) => {
   try {
-    const id = req.session.user_id;
-    console.log(id);
     const createTodo = await Todo.create(req.body);
-    const user = await User.findById(id);
+    const user = await User.findById(userId);
     console.log(user);
     user.todos.push(createTodo);
     createTodo.user = user;
