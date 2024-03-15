@@ -4,13 +4,17 @@ const showTodos = require("../controllers/todo/showTodos");
 const deleteTodo = require("../controllers/todo/deleteTodo");
 const showTodo = require("../controllers/todo/showTodo");
 const updateTodo = require("../controllers/todo/updateTodo");
+const checkLoggedIn = require("../middelware");
 
 const routes = express.Router();
 
-routes.post("/user/:id/todo", createTodo);
-routes.get("/user/:id/todo", showTodos);
+routes.post("/todo", createTodo);
+routes.get("/todo", checkLoggedIn, showTodos);
 routes.delete("/todo/:id", deleteTodo);
-routes.get("/todo/:id", showTodo);
-routes.put("/todo/:id", updateTodo);
+routes.get("/todo/:id", checkLoggedIn, showTodo);
+routes.put("/todo/:id", checkLoggedIn, updateTodo);
+routes.get("/home", (req, res) => {
+  res.send("Home page");
+});
 
 module.exports = routes;

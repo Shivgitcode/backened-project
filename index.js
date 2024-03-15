@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const app = express();
 const todoRoutes = require("./routes/todo");
 const userRoutes = require("./routes/user");
+const session = require("express-session");
 
 dotenv.config();
 dbConnect();
@@ -11,13 +12,14 @@ dbConnect();
 const port = process.env.PORT;
 
 app.use(express.json());
+app.use(session({ secret: "thisisnotagoodsecret" }));
 app.use("/", todoRoutes);
 app.use("/", userRoutes);
 
 app.use((err, req, res, next) => {
   const { status = 500, message = "internal server error" } = err;
   res.status(status).send(message);
-  next();
+  next(err);
 });
 
 app.listen(port, () => {

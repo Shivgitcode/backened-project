@@ -6,7 +6,7 @@ const showTodo = async (req, res, next) => {
     const { id } = req.params;
     const findTodo = await Todo.findById(id);
     if (!findTodo) {
-      next(err);
+      next(new TodoErrors("todo cannot be found", 404));
     } else {
       res.send(findTodo);
     }
