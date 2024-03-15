@@ -8,7 +8,7 @@ const checkLoggedIn = require("../middelware");
 
 const routes = express.Router();
 
-routes.post("/todo", createTodo);
+routes.post("/todo", checkLoggedIn, createTodo);
 routes.get("/todo", checkLoggedIn, showTodos);
 routes.delete("/todo/:id", deleteTodo);
 routes.get("/todo/:id", checkLoggedIn, showTodo);

@@ -1,7 +1,6 @@
 const TodoErrors = require("../../catchErrors");
 const Todo = require("../../schema/todoSchema");
 const User = require("../../schema/userShema");
-const session = require("express-session");
 
 const createTodo = async (req, res, next) => {
   try {

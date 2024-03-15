@@ -2,10 +2,6 @@ const User = require("../../schema/userShema");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const app = express();
-const session = require("express-session");
-
-app.use(session({ secret: "thisisnotagoodsecret" }));
-
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
   const hashedPass = await bcrypt.hash(password, 12);
@@ -15,6 +11,7 @@ const registerUser = async (req, res) => {
     email,
     password: hashedPass,
   });
+  req.session.user_id = null;
 
   res.send("user created");
 };

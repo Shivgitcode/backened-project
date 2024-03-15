@@ -12,7 +12,13 @@ dbConnect();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(session({ secret: "thisisnotagoodsecret" }));
+app.use(
+  session({
+    secret: "thisisnotagoodsecret",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 app.use("/", todoRoutes);
 app.use("/", userRoutes);
 
