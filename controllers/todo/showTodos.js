@@ -1,12 +1,9 @@
 const TodoErrors = require("../../catchErrors");
-const Todo = require("../../schema/todoSchema");
+const getUserId = require("../../getUserId");
 const User = require("../../schema/userShema");
-const jwt = require("jsonwebtoken");
 
 const showTodos = async (req, res, next) => {
-  const token = req.cookies.jwt;
-  const { id } = jwt.verify(token, "thisistopsecret");
-  // console.log(decodedToken);
+  const userId = getUserId(req.cookies.jwt);
   const user = await User.findById(userId).populate("todos");
   const todos = user.todos;
   if (todos.length === 0) {

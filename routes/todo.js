@@ -8,9 +8,9 @@ const { checkLoggedIn, checkUser } = require("../middelware");
 
 const routes = express.Router();
 
-routes.post("/todo", checkLoggedIn, checkUser, createTodo);
-routes.get("/todo", checkLoggedIn, checkUser, showTodos);
-routes.delete("/todo/:id", deleteTodo);
+routes.post("/todo", checkLoggedIn, createTodo);
+routes.get("/todo", checkLoggedIn, showTodos);
+routes.delete("/todo/:id", checkLoggedIn, checkUser, deleteTodo);
 routes.get("/todo/:id", checkLoggedIn, checkUser, showTodo);
 routes.put("/todo/:id", checkLoggedIn, checkUser, updateTodo);
 routes.get("/home", (req, res) => {

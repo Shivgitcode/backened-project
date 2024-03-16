@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const TodoErrors = require("./catchErrors");
+const Todo = require("./schema/todoSchema");
 
 const checkLoggedIn = async (req, res, next) => {
   const token = req.cookies.jwt;
@@ -20,9 +22,17 @@ const checkLoggedIn = async (req, res, next) => {
 
 const checkUser = async (req, res, next) => {
   const token = req.cookies.jwt;
+  const userId = jwt.verify(token, "thisistopsecret").id;
+
   if (token) {
-    userId = jwt.verify(token, "thisistopsecret").id;
-    return next();
+    const { id } = req.params;
+    const todo = await Todo.findById(id).populate("user");
+    if (todo.user._id.toString() == userId) {
+      userId;
+      next();
+    } else {
+      next(new TodoErrors("unauthorized to do this action", 403));
+    }
   } else {
     res.redirect("/home");
   }
