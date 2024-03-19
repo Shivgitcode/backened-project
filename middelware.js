@@ -16,7 +16,7 @@ const checkLoggedIn = async (req, res, next) => {
       }
     });
   } else {
-    res.redirect("/home");
+    res.redirect("/");
   }
 };
 
@@ -34,7 +34,7 @@ const checkUser = async (req, res, next) => {
       next(new TodoErrors("unauthorized to do this action", 403));
     }
   } else {
-    res.redirect("/home");
+    res.redirect("/");
   }
 };
 

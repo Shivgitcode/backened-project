@@ -12,7 +12,11 @@ const registerUser = async (req, res) => {
   });
   const token = jwt.sign({ id: user._id }, "thisistopsecret");
   res.cookie("jwt", token);
-  res.send("user created");
+  res.status(200).json({
+    data: user,
+    success: true,
+    message: "user created",
+  });
 };
 
 module.exports = registerUser;

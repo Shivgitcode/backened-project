@@ -9,7 +9,11 @@ const showTodos = async (req, res, next) => {
   if (todos.length === 0) {
     return next(new TodoErrors("this todo not availabe", 404));
   }
-  res.send(todos);
+  res.json({
+    data: todos,
+    success: true,
+    message: "todo Sent",
+  });
 };
 
 module.exports = showTodos;

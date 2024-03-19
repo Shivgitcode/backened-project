@@ -5,11 +5,19 @@ const app = express();
 const todoRoutes = require("./routes/todo");
 const userRoutes = require("./routes/user");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 dotenv.config();
 dbConnect();
 
 const port = process.env.PORT;
+const corsOptions = {
+  origin: "http://localhost:5173",
+  methods: "GET,POST,PUT,DELETE,PATCH,HEAD",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
