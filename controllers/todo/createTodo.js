@@ -12,7 +12,10 @@ const createTodo = async (req, res, next) => {
     createTodo.user = user;
     createTodo.save();
     user.save();
-    res.send("todo made");
+    res.status(200).json({
+      message: "todo made",
+      data: createTodo,
+    });
   } catch (error) {
     next(error);
   }

@@ -9,7 +9,7 @@ const checkLoggedIn = async (req, res, next) => {
     jwt.verify(token, "thisistopsecret", (err, decodedToken) => {
       if (err) {
         console.log(err.message);
-        res.redirect("/home");
+        res.redirect("/");
       } else {
         console.log(decodedToken);
         next();
@@ -27,11 +27,11 @@ const checkUser = async (req, res, next) => {
   if (token) {
     const { id } = req.params;
     const todo = await Todo.findById(id).populate("user");
-    if (todo.user._id.toString() == userId) {
+    if (todo.user._id.toString() === userId) {
       userId;
       next();
     } else {
-      next(new TodoErrors("unauthorized to do this action", 403));
+      next(new TodoErrors("unauthorized to do this action", 401));
     }
   } else {
     res.redirect("/");

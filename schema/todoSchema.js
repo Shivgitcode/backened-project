@@ -8,6 +8,7 @@ const todoSchema = new mongoose.Schema({
   isDone: {
     required: true,
     type: Boolean,
+    default: false,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

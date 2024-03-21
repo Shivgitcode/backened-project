@@ -26,7 +26,9 @@ app.use("/", userRoutes);
 
 app.use((err, req, res, next) => {
   const { status = 500, message = "internal server error" } = err;
-  res.status(status).send(message);
+  res.status(status).json({
+    message: message,
+  });
   next(err);
 });
 
