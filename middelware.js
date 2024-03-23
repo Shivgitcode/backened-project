@@ -27,7 +27,9 @@ const checkUser = async (req, res, next) => {
   if (token) {
     const { id } = req.params;
     const todo = await Todo.findById(id).populate("user");
-    if (todo.user._id.toString() === userId) {
+    if (!todo.user) {
+      return next(new TodoErrors("User not found"));
+    } else if (todo.user._id.toString() === userId) {
       userId;
       next();
     } else {
